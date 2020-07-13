@@ -64,7 +64,7 @@ The KuCoin server is set up in **AWS Tokyo, Japan** We also provide private_link
    
    * Directly call the rest endpoint, How to use: Take KuCoin as an example https://docs.kucoin.com/api/v1/orders/{order-id}
 * Because the REST request is lagging, the order may be filled right after you query the order information. So if you are a high-frequency trader, it is only recommended that you use rest requests in compensation logic and risk control logic.
-   
+  
 2. [**Websockt Private channels (recommended)**](https://docs.kucoin.com/#private-channels)
 
    Obtain your own order information by subscribing to the private channel. The private channel will push the data of your own orders in real time. Instead of frequently querying your own orders status via REST requests, you can save your frequency-limit and get order status faster.
@@ -94,7 +94,7 @@ Generally, Level-3 feed has three fields: topic, subject and data. There are top
 
 Let’s look at a flow chart firstly,
 
-<img src="./img/flow.png" alt="image-20200713141210773" style="zoom:50%;" />
+<img src="./img/flow.png" alt="flow" style="zoom:50%;" />
 
 This flowchart clearly describes the Level-3 message and various situations that may be received after an order is placed.
 

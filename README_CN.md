@@ -93,7 +93,7 @@
       
       我们先看一个流程图，  
       
-      <img src="/Users/arthur/www/academy/best-practice/img/flow.png" alt="image-20200713141210773" style="zoom:50%;" />
+      <img src="./img/flow.png" alt="flow" style="zoom:50%;" />
       
       这个流程图很清晰的讲述了一个订单下单之后可能收到的Level-3消息以及各种情况。
       
