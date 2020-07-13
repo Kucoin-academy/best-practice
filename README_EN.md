@@ -70,7 +70,7 @@ The KuCoin server is set up in **AWS Tokyo, Japan** We also provide private_link
 
 ### Let's start with a simple RECEIVE message as an example
 
-```json
+```
  {
    "topic": "/spotMarket/level3v2:BTC-USDT",
    "subject": "received",
@@ -98,7 +98,7 @@ After you place an order, **you will usually receive a RECEIVE message**. Within
 
 Let’s say you placed an order with clientOid of *a4ba662f77180b69f186aa578aa52cb6* in the BTC-USDT trading pair, the quantity is 1, and the buy price is $9000. Before placing the order, you should have such a data structure locally.
 
-``` json
+``` 
 {
 "a4ba662f77180b69f186aa578aa52cb6": {
     "orderId": "",
@@ -113,7 +113,7 @@ Let’s say you placed an order with clientOid of *a4ba662f77180b69f186aa578aa52
 ```
 After you receive the RECEIVE message: 
 
-```json
+```
  {
    "topic": "/spottMarket/level3v2:BTC-USDT",
    "subject": "received",
@@ -129,7 +129,7 @@ After you receive the RECEIVE message:
 
 So you judge by clientOid that this RECEIVE message belongs to your own order. At this time, you can update your local data structure. If you are using a key-value structure, the time complexity should be O(1). **If you did not receive the RECEIVE message after a certain time (up to 1s) after placing an order, and the sequence you received keeps strictly incremental (meaning no message is lost), then your order must have failed to be placed**, and you should know you need to do something about it. (**Alternatively, if you are using the private channel and haven’t received a feed after placing an order, it may not necessarily be an order failure, and there could be a missing message. The message sequence in the public channel, however, must be strictly incremental. So in the case of continuous sequence, if you have not received an order feed within a certain period of time, you can be sure that the order placement has failed. There is no need to use REST to query your order status**.)
 
-```json
+```
 {
 "a4ba662f77180b69f186aa578aa52cb6": {
     "orderId": "5f0186a2d765040006f0b1fa",
@@ -145,7 +145,7 @@ So you judge by clientOid that this RECEIVE message belongs to your own order. A
 
 Since the related order messages will be associated with orderId later, it is recommended that you maintain a local orderId key structure like this:
 
-```json
+```
 {
 "5f0186a2d765040006f0b1fa":
     {

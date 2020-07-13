@@ -76,7 +76,7 @@ KuCoin的服务器设置在**AWS 日本东京**，我们同时也提供**private
 
 ### 我们先举一个简单的RECEIVE消息作为例子
 
-```json
+```
  {
    "topic": "/spotMarket/level3v2:BTC-USDT",
    "subject": "received",
@@ -104,7 +104,7 @@ KuCoin的服务器设置在**AWS 日本东京**，我们同时也提供**private
 
 你在BTC-USDT交易对下了一个clientOid为a4ba662f77180b69f186aa578aa52cb6的订单，数量为1，价格为9000的买单，在下单之前，你本地就应该有这样一个数据结构，
 
-``` json
+``` 
 {
 "a4ba662f77180b69f186aa578aa52cb6": {
     "orderId": "",
@@ -120,7 +120,7 @@ KuCoin的服务器设置在**AWS 日本东京**，我们同时也提供**private
 
 当你收到RECEIVE消息之后
 
-```json
+```
  {
    "topic": "/spottMarket/level3v2:BTC-USDT",
    "subject": "received",
@@ -136,7 +136,7 @@ KuCoin的服务器设置在**AWS 日本东京**，我们同时也提供**private
 
 通过clientOid，你可以判断这条RECEIVE消息是属于你自己的订单，此时你可以更新你本地的数据结构。如果你使用的是key-value结构，时间复杂度应该是O(1)，**如果在下单一定时间（最多1s）之后没有收到RECEIVE消息并且你收到的sequence是连续的，那么你的订单一定是下单失败了**，因此你需要做一些额外的处理。如果你已经收到RECEIVE消息了，代表是一定下单成功的。（**如果你使用的是私有频道，没有收到下单的推送，不一定是下单失败，还有可能是漏消息，但是公有频道由于sequence一定是连续的，所以在一定时间内没有收到下单推送，可以确定是下单失败，无需再用REST去补救查询**）。
 
-```json
+```
 {
 "a4ba662f77180b69f186aa578aa52cb6": {
     "orderId": "5f0186a2d765040006f0b1fa",
@@ -152,7 +152,7 @@ KuCoin的服务器设置在**AWS 日本东京**，我们同时也提供**private
 
 由于相关订单的消息之后都会用orderId来关联，所以这里推荐你在本地再维护一个orderId为key的结构，类似这样：
 
-```json
+```
 {
 "5f0186a2d765040006f0b1fa":
     {
