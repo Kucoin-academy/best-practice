@@ -25,7 +25,7 @@ The KuCoin server is set up in **AWS Tokyo, Japan** We also provide private_link
 
 ### How to get the exchange market data quickly and accurately
 
-1. **REST request method (not recommended)**
+1. [**REST request method (not recommended)**](https://docs.kucoin.com/#get-ticker)
 
    Directly call the rest endpoint, How to use: Take KuCoin as an example https://docs.kucoin.com/#get-ticker
 
@@ -46,25 +46,31 @@ The KuCoin server is set up in **AWS Tokyo, Japan** We also provide private_link
    * Low-frequency strategies
    * When other protocols encounters problems such as WebSocket failure, your risk control system can use this method to obtain market data for further operations.
 
-2. **WebSocket Level-2 Market Data Feed(recommended)**
+2. [**WebSocket Level-2 Market Data Feed Full-Data(recommended)**](https://docs.kucoin.com/#level2-5-best-ask-bid-orders)
 
    KuCoin provides the Level-2 WebSocket market data feed with 5 levels and 50 levels (consolidated order size for each price level), and the feed time interval is around 100ms. 
 
-3. **WebSocket Level-3 Market Data Feed(recommended)**
+3. [**WebSocket Level-2 Market Data Feed Increment-Data(recommended)**](https://docs.kucoin.com/#level-2-market-data)
+
+   KuCoin provides the Level-2 WebSocket market data feed to create increment order book.
+
+4. [**WebSocket Level-3 Market Data Feed(recommended)**](https://docs.kucoin.com/#full-matchengine-data-revision-level-nbsp-3)
 
    Build the whole exchange order-book locally and directly read the data from the local memory by subscribing the Level-3 incremental market data feed.
 
 ### How to maintain your order status quickly and accurately
 
-1. **REST request method (not recommended)**
+1. [**REST request method (not recommended)**](https://docs.kucoin.com/#get-an-order)
+   
    * Directly call the rest endpoint, How to use: Take KuCoin as an example https://docs.kucoin.com/api/v1/orders/{order-id}
-   * Because the REST request is lagging, the order may be filled right after you query the order information. So if you are a high-frequency trader, it is only recommended that you use rest requests in compensation logic and risk control logic.
-
-2. **Websockt Private channels (recommended)**
+* Because the REST request is lagging, the order may be filled right after you query the order information. So if you are a high-frequency trader, it is only recommended that you use rest requests in compensation logic and risk control logic.
+   
+2. [**Websockt Private channels (recommended)**](https://docs.kucoin.com/#private-channels)
 
    Obtain your own order information by subscribing to the private channel. The private channel will push the data of your own orders in real time. Instead of frequently querying your own orders status via REST requests, you can save your frequency-limit and get order status faster.
 
-3. **Websocket Level-3 Feed (recommended)**
+3. [**Websocket Level-3 Feed (recommended)**](https://docs.kucoin.com/#full-matchengine-data-revision-level-nbsp-3)
+   
    * If you are a HFT trader, it is strongly recommended that you use public Level-3 market data feed to maintain your own orders. Level-3 feed comes directly from the matching engine, and is the fastest way to maintain your order status. Besides, the Level-3 incremental feed can guarantee a complete accuracy.
    * Level-3 data feed is streamlined and incremental. Each message has a sequence number, so you can check whether you have received every message out there.
 
